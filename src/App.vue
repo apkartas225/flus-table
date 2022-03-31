@@ -13,7 +13,6 @@
      />
     
     <div class="table">
-     
 
       <Table 
       :element='elements[currentPage]'

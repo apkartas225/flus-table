@@ -1,4 +1,5 @@
 <template>
+
   <div class="fuse-table">
     <div class="table-name">Сводная таблица</div>
     <table class="table">
@@ -29,28 +30,71 @@
             </tr>
         </tbody>
     </table>
+    <div class="graph">
+         <BarChart :chartData="computedGraph"
+         :height='300'
+         :width='300'
+         :options="options"
+        />
+    </div>
+    
   </div>
-  
+ 
 </template>
 
 <script>
+import { Chart, registerables } from 'chart.js';
+import { BarChart } from 'vue-chart-3';
+Chart.register(...registerables);
 export default {
     name: 'Fuse-table',
+    components: {BarChart},
     props: {
          element: {
             type: Object,
         },
     },
+    data: () => ({
+        options: {
+              responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+        
+        },
+      },
+        }
+    }),
+   
+    computed: {
+        computedGraph(){
+             let testData = {
+                labels: ['1', '2', '3', '4', '5'],
+                datasets: [
+                    {
+                    data: this.element.graph,
+                    backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
+                    },
+                ],
+            }
+            return testData
+        }
+       
+    },
     methods: {
+      
          computedDate(now){
-              let date = new Date(now),
-              month = date.getMonth() + 1,
-              day = date.getDate(),
-              year = date.getFullYear();
+            let date = new Date(now),
+            month = date.getMonth() + 1,
+            day = date.getDate(),
+            year = date.getFullYear();
 
-              day = day < 10 ? `${0}${day}` : day;
-              
-          return  `${day}.${month}.${year}`;
+            day = day < 10 ? `${0}${day}` : day;
+            
+            return  `${day}.${month}.${year}`;
       },
       
     },
@@ -59,5 +103,5 @@ export default {
 </script>
 
 <style>
-
+   
 </style>
