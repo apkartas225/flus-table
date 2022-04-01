@@ -42,7 +42,6 @@ export default {
     computed: {
       getDate(){
           return parseData(this.blockParams.date);
-          
       }
     }
 }

@@ -4,8 +4,8 @@
     :currentPage='currentPage'
     :blockParams='elements[currentPage]'
     :dataTable='elements'
-    @showNextPage='this.currentPage++'
-    @showPrevPage='this.currentPage--'
+    @showNextPage='currentPage++'
+    @showPrevPage='currentPage--'
     />
 
     <Description

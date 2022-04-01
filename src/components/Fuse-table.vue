@@ -56,8 +56,6 @@ export default {
         options: {
               responsive: true,
       plugins: {
-        // "name given to plugin": false,
-       
         legend: {
           display: false,
           position: 'top',
