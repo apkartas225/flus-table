@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-      <div class="title">Плавка: {{element.id}}</div>
+      <div class="title">Плавка: {{blockParams.id}}</div>
       <div class="arrows">
         <button
          class="arrow-img"
@@ -25,10 +25,10 @@
 export default {
     name: 'My-header',
     props: {
-        elements: {
+        dataTable: {
             type: Object,
         },
-         element: {
+         blockParams: {
             type: Object,
         },
         currentPage: {
@@ -46,12 +46,12 @@ export default {
     },
     computed: {
         isDisabledNext(){
-            return this.currentPage === this.elements.length - 1;
+            return this.currentPage === this.dataTable.length - 1;
         },
         isDisabledPrev(){
             return this.currentPage === 0;
-        }
-    }
+        },
+    },
 
     
 }

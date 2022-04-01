@@ -1,5 +1,4 @@
 <template>
-
   <div class="fuse-table">
     <div class="table-name">Сводная таблица</div>
     <table class="table">
@@ -15,7 +14,7 @@
         </thead>
         <tbody>
             <tr
-            v-for="(row, idx) of element.details"
+            v-for="(row, idx) of blockParams.details"
             :key="idx">
                 <td>{{ row.unit }}</td>
                 <td>{{ computedDate(row.date) }}</td>
@@ -37,12 +36,11 @@
          :options="options"
         />
     </div>
-    
   </div>
- 
 </template>
 
 <script>
+import { parseData } from '../helpers/date';
 import { Chart, registerables } from 'chart.js';
 import { BarChart } from 'vue-chart-3';
 Chart.register(...registerables);
@@ -50,7 +48,7 @@ export default {
     name: 'Fuse-table',
     components: {BarChart},
     props: {
-         element: {
+         blockParams: {
             type: Object,
         },
     },
@@ -58,45 +56,35 @@ export default {
         options: {
               responsive: true,
       plugins: {
+        // "name given to plugin": false,
+       
         legend: {
+          display: false,
           position: 'top',
+          
         },
-        title: {
-          display: true,
         
-        },
       },
         }
     }),
-   
     computed: {
         computedGraph(){
              let testData = {
                 labels: ['1', '2', '3', '4', '5'],
                 datasets: [
                     {
-                    data: this.element.graph,
-                    backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
+                    data: this.blockParams.graph,
+                    backgroundColor: ['#77CdEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
                     },
                 ],
             }
             return testData
         }
-       
     },
     methods: {
-      
-         computedDate(now){
-            let date = new Date(now),
-            month = date.getMonth() + 1,
-            day = date.getDate(),
-            year = date.getFullYear();
-
-            day = day < 10 ? `${0}${day}` : day;
-            
-            return  `${day}.${month}.${year}`;
-      },
-      
+         computedDate(milliseconds){
+           return parseData(milliseconds);
+        },
     },
    
 }
